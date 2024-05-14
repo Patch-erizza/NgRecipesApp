@@ -1,0 +1,21 @@
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+}
+.recipe-img{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+

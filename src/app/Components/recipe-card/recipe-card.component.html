@@ -1,0 +1,62 @@
+<mat-card class="recipe-card">
+  <mat-card-header>
+    <mat-card-title>{{recipe.name}}</mat-card-title>
+    <mat-card-subtitle>Rating: {{recipe.rating}}</mat-card-subtitle>
+    <mat-card-subtitle>Review Count: {{recipe.reviewCount}}</mat-card-subtitle>
+    <mat-card-subtitle>Difficulty: {{recipe.difficulty}}</mat-card-subtitle>
+  </mat-card-header>
+  <img class="recipe-img" mat-card-image [src]="recipe.image" [alt]="recipe.name"/>
+  <mat-card-content>
+    <mat-card-subtitle>Servings: {{recipe.servings}}</mat-card-subtitle>
+    <mat-card-subtitle>Prep Time Minutes: {{recipe.prepTimeMinutes}}</mat-card-subtitle>
+    <mat-card-subtitle>Cook Time Minutes: {{recipe.cookTimeMinutes}}</mat-card-subtitle>
+    <mat-card-subtitle>Calories: {{recipe.caloriesPerServing}}</mat-card-subtitle>
+    <mat-chip-set>
+      <mat-chip class="recipe-ingredients" *ngFor="let ingredient of recipe.ingredients">{{ingredient}}</mat-chip>
+    </mat-chip-set>
+    <p>{{recipe.instructions}}</p>
+    <mat-chip-set>
+      <mat-chip *ngFor="let tag of recipe.tags">{{tag}}</mat-chip>
+    </mat-chip-set>
+    <mat-card-actions>
+      <div class="example-button-row">
+        <div class="example-flex-container">
+          <div class="example-button-container">
+            <button mat-fab color="warm" (click)="openDialogAddRecipe()">
+              <mat-icon class="edit-button">edit</mat-icon>
+            </button>
+          </div>
+          <div class="example-button-container">
+            <button mat-fab color="warm" (click)="openDialogDeleteRecipe()">
+              <mat-icon class="edit-button">delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>
+
+
+<!--<div class="recipe-card">-->
+<!--  <p>{{recipe.id}}</p>-->
+<!--  <p>{{recipe.name}}</p>-->
+
+<!--  <div class="recipe-card-image">-->
+<!--    <img [src]="recipe.image" [alt]="recipe.name"/>-->
+<!--  </div>-->
+
+<!--  <p>{{recipe.ingredients}}</p>-->
+<!--  <p>{{recipe.instructions}}</p>-->
+<!--  <p>{{recipe.prepTimeMinutes}}</p>-->
+<!--  <p>{{recipe.cookTimeMinutes}}</p>-->
+<!--  <p>{{recipe.servings}}</p>-->
+<!--  <p>{{recipe.difficulty}}</p>-->
+<!--  <p>{{recipe.cuisine}}</p>-->
+<!--  <p>{{recipe.caloriesPerServing}}</p>-->
+<!--  <p>{{recipe.tags}}</p>-->
+<!--  <p>{{recipe.userId}}</p>-->
+<!--  <p>{{recipe.rating}}</p>-->
+<!--  <p>{{recipe.reviewCount}}</p>-->
+<!--  <p>{{recipe.mealType}}</p>-->
+<!--</div>-->

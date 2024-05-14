@@ -1,0 +1,33 @@
+/*:host {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  align-items: flex-start;*/
+/*}*/
+.create-and-edit-form {
+  min-width: 150px;
+  max-width: 800px;
+  width: 100%;
+}
+.create-and-edit-form-input {
+  width: 100%;
+}
+.input-group-for-row {
+  display: flex;
+  flex-direction: row;
+}
+.input-group-for-row > create-and-edit-form-input {
+  width: 50%;
+}
+.input-group-for-row > mat-form-field {
+  margin-right: 20px;
+}
+.input-group-for-three-row {
+  display: flex;
+  flex-direction: row;
+}
+.input-group-for-three-row > create-and-edit-form-input {
+  width: 30%;
+}
+.tags-control {
+  width: 100%;
+}

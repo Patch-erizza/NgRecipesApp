@@ -1,0 +1,107 @@
+<h2 mat-dialog-title>Create and edit recipe</h2>
+<mat-dialog-content>
+  <form [formGroup]="createAndEditForm"
+        (ngSubmit)="addAndUpdateRecipe()" class="create-and-edit-form">
+    <mat-form-field class="create-and-edit-form-input">
+      <mat-label>Recipe name:</mat-label>
+      <input matInput type="text" formControlName="name">
+      <ng-container *ngIf="createAndEditForm.get('name') as nameFormControl">
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          This field is required
+        </mat-error>
+        <mat-error *ngIf="nameFormControl.hasError('minLength')">
+          Minimum number of characters not entered
+        </mat-error>
+        <mat-error *ngIf="nameFormControl.hasError('maxLength')">
+          Title too long
+        </mat-error>
+        <mat-error *ngIf="nameFormControl.hasError('pattern')">
+          Numbers in the title are not allowed
+        </mat-error>
+      </ng-container>
+    </mat-form-field>
+
+    <div class="input-group-for-row">
+      <mat-form-field class="create-and-edit-form-input">
+        <mat-label>Difficulty of recipe:</mat-label>
+        <input matInput formControlName="difficulty">
+      </mat-form-field>
+
+
+      <mat-form-field class="create-and-edit-form-input">
+        <mat-label>Servings:</mat-label>
+        <input matInput type="number" formControlName="servings">
+      </mat-form-field>
+    </div>
+
+    <div class="input-group-for-three-row">
+      <mat-form-field class="create-and-edit-form-input">
+        <mat-label>Prep Time Minutes:</mat-label>
+        <input matInput type="number" formControlName="prepTimeMinutes">
+      </mat-form-field>
+
+      <mat-form-field class="create-and-edit-form-input">
+        <mat-label>Cook Time Minutes:</mat-label>
+        <input matInput type="number" formControlName="cookTimeMinutes">
+      </mat-form-field>
+
+      <mat-form-field class="create-and-edit-form-input">
+        <mat-label>Calories:</mat-label>
+        <input matInput type="number" formControlName="caloriesPerServing">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="tags-control">
+      <mat-label>'Add ingredients'</mat-label>
+      <app-add-and-remove-tags class="create-and-edit-form-input" formControlName="ingredients"
+        *ngIf="ingredients$ | async as ingredients"
+        [tags]="ingredients">
+      </app-add-and-remove-tags>
+      <ng-container *ngIf="createAndEditForm.get('ingredients') as ingredientsFormControl">
+        <mat-error *ngIf="ingredientsFormControl.hasError('arrayMinLengthValidator')">
+          Add at least one ingredient
+        </mat-error>
+      </ng-container>
+    </mat-form-field>
+
+    <mat-form-field class="create-and-edit-form-input">
+      <mat-label>Recipe instructions</mat-label>
+      <textarea matInput formControlName="instructions"></textarea>
+      <ng-container *ngIf="createAndEditForm.get('instructions') as instructionsFormControl">
+        <mat-error *ngIf="instructionsFormControl.hasError('required')">
+          This field is required
+        </mat-error>
+        <mat-error *ngIf="instructionsFormControl.hasError('maxLength')">
+          You have entered too many characters
+        </mat-error>
+      </ng-container>
+    </mat-form-field>
+
+    <div class="input-group-for-row">
+      <mat-form-field class="create-and-edit-form-input">
+        <ngx-mat-file-input placeholder="Add image" formControlName="image"></ngx-mat-file-input>
+        <mat-icon matSuffix>folder</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="tags-control">
+        <mat-label>Select a tag</mat-label>
+        <app-add-and-remove-tags class="create-and-edit-form-input" formControlName="tags"
+          *ngIf="tags$ | async as tags"
+          [tags]="tags">
+        </app-add-and-remove-tags>
+        <ng-container *ngIf="createAndEditForm.get('tags') as tagsFormControl">
+          <mat-error *ngIf="tagsFormControl.hasError('arrayMinLengthValidator')">
+            Add at least one ingredient
+          </mat-error>
+        </ng-container>
+      </mat-form-field>
+    </div>
+    <mat-dialog-actions>
+      <button mat-raised-button (click)="onNoClick()">Cancel</button>
+      <button mat-raised-button type="submit" [disabled]="!createAndEditForm.valid">Save recipe</button>
+      <!--    [mat-dialog-close]="data.animal"-->
+    </mat-dialog-actions>
+  </form>
+
+</mat-dialog-content>
+
