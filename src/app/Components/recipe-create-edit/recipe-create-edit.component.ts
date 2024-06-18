@@ -13,7 +13,15 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from "@angular/material/dialog";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, ValidatorFn, ValidationErrors} from "@angular/forms";
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+  ValidatorFn,
+  ValidationErrors
+} from "@angular/forms";
 import {MatButton, MatButtonModule} from "@angular/material/button";
 import {AddAndRemoveTagsComponent} from "../add-and-remove-tags/add-and-remove-tags.component";
 import {AsyncPipe, NgIf} from "@angular/common";
@@ -62,13 +70,13 @@ import {arrayMinLengthValidator} from "../../Validators/array-min-length.validat
 export class RecipeCreateEditComponent {
 
   createAndEditForm = new FormGroup({
-    id: new FormControl<number | undefined>( undefined),
+    id: new FormControl<number | undefined>(undefined),
     name: new FormControl<string>("",
       [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(255),
-        Validators.pattern('[a-zA-Z]')
+        Validators.pattern('[a-zA-Z/s]*')
       ]),
     difficulty: new FormControl<string>(""),
     servings: new FormControl<number>(0),
@@ -111,7 +119,7 @@ export class RecipeCreateEditComponent {
         })
       )
     // @ts-ignore
-    if(data) {
+    if (data) {
       this.createAndEditForm.get("id")?.setValue(data.id);
       this.createAndEditForm.get("name")?.setValue(data.name);
       this.createAndEditForm.get("difficulty")?.setValue(data.difficulty);
@@ -126,22 +134,32 @@ export class RecipeCreateEditComponent {
     }
 
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   async addAndUpdateRecipe() {
-    const formData = this.createAndEditForm.value;
-    if(this.data) {
-      const updateRecipe$ = this.recipesService.updateRecipe$(formData as IRecipeCreateEditFormData);
-      await firstValueFrom(updateRecipe$);
-    } else {
-      const newRecipe$ = this.recipesService.createRecipe$(formData as IRecipeCreateEditFormData);
-      await firstValueFrom(newRecipe$);
+    try {
+      const formData = this.createAndEditForm.value;
+      if (this.data) {
+        const updateRecipe$ = this.recipesService.updateRecipe$(formData as IRecipeCreateEditFormData);
+        await firstValueFrom(updateRecipe$);
+      } else {
+        const newRecipe$ = this.recipesService.createRecipe$(formData as IRecipeCreateEditFormData);
+        await firstValueFrom(newRecipe$);
+      }
+      this.openSnackBar();
+      this.dialogRef.close();
+    } catch (err) {
+      this.errorSnackBar();
     }
-    this.openSnackBar();
-    this.dialogRef.close();
   }
+
   openSnackBar() {
-    this.snackBar.open("Recipe be saved!", "",{duration: 3000})
+    this.snackBar.open("Recipe be saved!", "", {duration: 3000})
+  }
+  errorSnackBar() {
+    this.snackBar.open("Something went wrong!", "", {duration: 5000})
   }
 }

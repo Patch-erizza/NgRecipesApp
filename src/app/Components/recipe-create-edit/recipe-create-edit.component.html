@@ -51,18 +51,17 @@
       </mat-form-field>
     </div>
 
-    <mat-form-field class="tags-control">
-      <mat-label>'Add ingredients'</mat-label>
       <app-add-and-remove-tags class="create-and-edit-form-input" formControlName="ingredients"
         *ngIf="ingredients$ | async as ingredients"
+                               [placeholder]="'Add ingredients'"
         [tags]="ingredients">
+        <ng-container *ngIf="createAndEditForm.get('ingredients') as ingredientsFormControl">
+          <mat-error *ngIf="ingredientsFormControl.hasError('arrayMinLength')">
+            Add at least one ingredient
+          </mat-error>
+        </ng-container>
       </app-add-and-remove-tags>
-      <ng-container *ngIf="createAndEditForm.get('ingredients') as ingredientsFormControl">
-        <mat-error *ngIf="ingredientsFormControl.hasError('arrayMinLengthValidator')">
-          Add at least one ingredient
-        </mat-error>
-      </ng-container>
-    </mat-form-field>
+
 
     <mat-form-field class="create-and-edit-form-input">
       <mat-label>Recipe instructions</mat-label>
@@ -83,18 +82,16 @@
         <mat-icon matSuffix>folder</mat-icon>
       </mat-form-field>
 
-      <mat-form-field class="tags-control">
-        <mat-label>Select a tag</mat-label>
         <app-add-and-remove-tags class="create-and-edit-form-input" formControlName="tags"
           *ngIf="tags$ | async as tags"
+          [placeholder]="'Select a tag'"
           [tags]="tags">
+          <ng-container *ngIf="createAndEditForm.get('tags') as tagsFormControl">
+            <mat-error *ngIf="tagsFormControl.hasError('arrayMinLength')">
+              Add at least one ingredient
+            </mat-error>
+          </ng-container>
         </app-add-and-remove-tags>
-        <ng-container *ngIf="createAndEditForm.get('tags') as tagsFormControl">
-          <mat-error *ngIf="tagsFormControl.hasError('arrayMinLengthValidator')">
-            Add at least one ingredient
-          </mat-error>
-        </ng-container>
-      </mat-form-field>
     </div>
     <mat-dialog-actions>
       <button mat-raised-button (click)="onNoClick()">Cancel</button>

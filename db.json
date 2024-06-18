@@ -1199,19 +1199,6 @@
       ]
     },
     {
-      "id": null,
-      "name": "",
-      "difficulty": "",
-      "servings": 0,
-      "prepTimeMinutes": 0,
-      "cookTimeMinutes": 0,
-      "caloriesPerServing": 0,
-      "ingredients": [],
-      "instructions": "",
-      "image": {},
-      "tags": []
-    },
-    {
       "id": "9a04",
       "userId": 58,
       "name": "Vegetarian Stir-Fry",
@@ -1237,6 +1224,23 @@
         "Vegetarian",
         "Stir-fry",
         "Asian"
+      ]
+    },
+    {
+      "id": null,
+      "name": "dfhbxcv",
+      "difficulty": "gj",
+      "servings": 4,
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 40,
+      "caloriesPerServing": 350,
+      "ingredients": [
+        "Soy sauce"
+      ],
+      "instructions": "vozmi puchok ukropu, potom koshachyu zhopy",
+      "image": {},
+      "tags": [
+        "Beef"
       ]
     }
   ],

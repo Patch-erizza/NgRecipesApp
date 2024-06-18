@@ -11,7 +11,7 @@ export function arrayMinLengthValidator(minLength: number): ValidatorFn {
     if (!Array.isArray(value)) {
       return null;
     }
-    if (value.length <= minLength) {
+    if (value.length < minLength) {
       return {arrayMinLength: true}
     }
     return null;

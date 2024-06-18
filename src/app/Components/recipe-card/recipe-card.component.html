@@ -1,4 +1,4 @@
-<mat-card class="recipe-card">
+<mat-card class="recipe-card" [routerLink]="['recipe', recipe.id]">
   <mat-card-header>
     <mat-card-title>{{recipe.name}}</mat-card-title>
     <mat-card-subtitle>Rating: {{recipe.rating}}</mat-card-subtitle>
@@ -14,8 +14,10 @@
     <mat-chip-set>
       <mat-chip class="recipe-ingredients" *ngFor="let ingredient of recipe.ingredients">{{ingredient}}</mat-chip>
     </mat-chip-set>
-    <p>{{recipe.instructions}}</p>
-    <mat-chip-set>
+<details class="summary-box">
+  <summary>{{recipe.instructions}}</summary>{{recipe.instructions}}
+</details>
+    <mat-chip-set class="card-tags">
       <mat-chip *ngFor="let tag of recipe.tags">{{tag}}</mat-chip>
     </mat-chip-set>
     <mat-card-actions>

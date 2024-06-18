@@ -13,11 +13,22 @@ import {RecipeService} from "../../services/recipe.service.service";
 import {IEditCreateRecipeDialogData} from "../../models/IEditCreateRecipeDialogData";
 import {RecipeDeleteComponent} from "../recipe-delete/recipe-delete.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {RouterLink, RouterModule} from "@angular/router";
 
 @Component({
   selector: 'app-recipe-card',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, MatCardImage, MatChipsModule, NgForOf, MatLabel, MatIcon],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatCardImage,
+    MatChipsModule,
+    NgForOf,
+    MatLabel,
+    MatIcon,
+    RouterModule,
+    RouterLink
+  ],
   templateUrl: './recipe-card.component.html',
   styleUrl: './recipe-card.component.css'
 })

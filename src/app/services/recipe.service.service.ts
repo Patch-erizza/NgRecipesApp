@@ -29,4 +29,8 @@ export class RecipeService {
   deleteRecipe$(id: number) {
     return this.http.delete(RECIPES_URL + "/" + id);
   }
+
+  getOneRecipe$(id: number) {
+    return this.http.get<IRecipe>(RECIPES_URL + "/" + id)
+  }
 }

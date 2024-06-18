@@ -2,40 +2,36 @@
 
   <div class="filter-search-and-sort-items">
 
-    <mat-form-field class="search-recipes">
-      <mat-label>Search recipes...</mat-label>
-      <input type="text" [formControl]="searchQueryControl" matInput placeholder=""/>
-    </mat-form-field>
+    <div class="search-and-filters">
+      <mat-form-field class="search-recipes">
+        <mat-label>Search recipes...</mat-label>
+        <input type="text" [formControl]="searchQueryControl" matInput placeholder=""/>
+      </mat-form-field>
 
-    <div class="add-and-remove-tags-controls">
+      <div class="add-and-remove-tags-controls">
 
-      <mat-form-field class="create-and-edit-form-input">
-        <mat-label>Select tag</mat-label>
         <app-add-and-remove-tags
           *ngIf="tags$ | async as tags"
+          [placeholder]="'Select tag'"
           [formControl]="addAndRemoveTagsControl"
           [tags]="tags">
         </app-add-and-remove-tags>
-      </mat-form-field>
 
-      <mat-form-field class="create-and-edit-form-input">
-        <mat-label>Add ingredient</mat-label>
         <app-add-and-remove-tags
           *ngIf="ingredients$ | async as ingredients"
           [formControl]="selectAddSortIngredients"
+          [placeholder]="'Add ingredients'"
           [tags]="ingredients">
         </app-add-and-remove-tags>
-      </mat-form-field>
 
-      <mat-form-field class="create-and-edit-form-input">
-        <mat-label>Exclude ingredient</mat-label>
         <app-add-and-remove-tags
           *ngIf="ingredients$ | async as ingredients"
+          [placeholder]="'Exclude ingredients'"
           [formControl]="selectExcludeSortIngredients"
           [tags]="ingredients">
         </app-add-and-remove-tags>
-      </mat-form-field>
 
+      </div>
     </div>
     <!--      <form>-->
     <!--      <mat-form-field>-->
@@ -62,19 +58,20 @@
     <!--        </ng-select>-->
 
     <!--      </div>-->
-
-    <mat-form-field>
-      <mat-label>Sort recipes:</mat-label>
-      <mat-select class="sort-item" [formControl]="selectSortControl">
-        <mat-option *ngFor="let recipesSortOption of recipesSortOptions | keyvalue" [value]="recipesSortOption.key">
-          {{recipesSortOption.value}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
+    <div class="sort-and-add-recipes">
+      <div>
+      <mat-form-field>
+        <mat-label>Sort recipes:</mat-label>
+        <mat-select class="sort-item" [formControl]="selectSortControl">
+          <mat-option *ngFor="let recipesSortOption of recipesSortOptions | keyvalue" [value]="recipesSortOption.key">
+            {{recipesSortOption.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button class="add-button" mat-raised-button (click)="openDialogAddRecipe()">Add recipe</button>
   </div>
-  <button mat-raised-button (click)="openDialogAddRecipe()">Add recipe</button>
-
+</div>
   <div class="app-recipes-list">
     <app-recipes-list *ngIf="recipes$ | async as recipes" [recipeList]="recipes"></app-recipes-list>
   </div>

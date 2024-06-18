@@ -1,0 +1,37 @@
+<div *ngIf="recipe$ | async as recipe" class="one-recipe-component">
+  <div class="one-recipe-header">
+    <h2 class="on-recipe-title">{{recipe.name}}</h2>
+    <div class="header-info">
+      <span>Rating: {{recipe.rating}}</span>
+      <span>Review Count: {{recipe.reviewCount}}</span>
+      <span>Difficulty: {{recipe.difficulty}}</span>
+    </div>
+    <mat-chip-set>
+      <mat-chip *ngFor="let tag of recipe.tags">{{tag}}</mat-chip>
+    </mat-chip-set>
+  </div>
+  <div class="info-and-ingredients-list">
+    <div class="image-and-info-list-of-one-recipe">
+      <img class="recipe-img" [src]="recipe.image" [alt]="recipe.name"/>
+      <div class="info-of-one-recipe">
+        <span>Servings: {{recipe.servings}}</span>
+        <span>Prep Time Minutes: {{recipe.prepTimeMinutes}}</span>
+        <span>Calories: {{recipe.caloriesPerServing}}</span>
+        <span>Cook Time Minutes: {{recipe.cookTimeMinutes}}</span>
+      </div>
+    </div>
+    <div class="one-recipe-ingredients">
+      <div class="list-title">
+        Ingredients:
+      </div>
+      <ul>
+        <li class="recipe-ingredients" *ngFor="let ingredient of recipe.ingredients">{{ingredient}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="instructions-title">
+    Preparation method:
+  </div>
+  <span class="instructions-of-recipe">{{recipe.instructions}}</span>
+</div>

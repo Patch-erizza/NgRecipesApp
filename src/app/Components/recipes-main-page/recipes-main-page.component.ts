@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {RecipesListComponent} from "../recipes-list/recipes-list.component";
 import {AsyncPipe, JsonPipe, KeyValuePipe, NgForOf, NgIf} from "@angular/common";
-import {combineLatest, map, Observable, publishReplay, refCount, startWith} from "rxjs";
+import {combineLatest, distinctUntilChanged, map, Observable, publishReplay, refCount, startWith} from "rxjs";
 import {IRecipe} from "../../models/IRecipe";
 import {RecipeService} from "../../services/recipe.service.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -79,21 +79,6 @@ export class RecipesMainPageComponent implements OnInit {
               private fb: FormBuilder,
               public dialog: MatDialog) {
 
-    this.recipes$ = this.recipesService.getRecipes$();
-    this.tags$ = this.tagsService.getTags$();
-    this.ingredients$ = this.recipes$
-      .pipe(
-        map(recipes => {
-          const ingredients = recipes.reduce((accumulator, recipe) => {
-            return [...accumulator, ...recipe.ingredients]
-          }, [] as string[]);
-
-          const uniqueValuesSet =
-            new Set(ingredients);
-
-          return Array.from(uniqueValuesSet);
-        })
-      )
   }
 
   // @ts-ignore
@@ -107,6 +92,25 @@ export class RecipesMainPageComponent implements OnInit {
 
   ngOnInit() {
 
+    const allRecipes$ = this.recipesService.getRecipes$()
+      .pipe(
+        publishReplay(),
+        refCount()
+      );
+    this.tags$ = this.tagsService.getTags$();
+    this.ingredients$ = allRecipes$
+      .pipe(
+        map(recipes => {
+          const ingredients = recipes.reduce((accumulator, recipe) => {
+            return [...accumulator, ...recipe.ingredients]
+          }, [] as string[]);
+
+          const uniqueValuesSet =
+            new Set(ingredients);
+
+          return Array.from(uniqueValuesSet);
+        })
+      )
     // this.form = this.fb.group({
     //   tags: []
     // });
@@ -155,8 +159,8 @@ export class RecipesMainPageComponent implements OnInit {
       map((queryParams) => {
         return queryParams["search"];
       }),
-      startWith("")
-    )
+      startWith(""),
+      )
     searchQueryParam$.subscribe((searchQuery) => {
       this.searchQueryControl.setValue(searchQuery, {emitEvent: false})
     })
@@ -202,7 +206,6 @@ export class RecipesMainPageComponent implements OnInit {
     })
 
 
-    const allRecipes$ = this.recipesService.getRecipes$();
     // const allTags$ = this.tagsService.getTags$();
     // const allIngredients$ = this.recipes$
     //     .pipe(

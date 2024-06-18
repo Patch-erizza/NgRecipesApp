@@ -48,6 +48,7 @@ export class AddAndRemoveTagsComponent implements ControlValueAccessor {
 
   // @ts-ignore
   @Input() tags: string[] = []; //===allFruits
+  @Input() placeholder: string = '';
   // @ts-ignore
   onChange = (_: any) => {};
   onTouched = () => {};
